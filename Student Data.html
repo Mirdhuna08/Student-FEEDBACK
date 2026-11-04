@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Data Management</title>
+</head>
+<body>
+
+    <h2>Student Data Management</h2>
+
+    <button onclick="displayStudents()">Display Students</button>
+    <button onclick="addStudent()">Add Student</button>
+    <button onclick="findStudent()">Find Student</button>
+    <button onclick="filterStudents()">Students Above 80</button>
+    <button onclick="averageMark()">Average Mark</button>
+    <button onclick="removeStudent()">Remove Student</button>
+
+    <div id="result"></div>
+
+    <script>
+        // 1. Create an array of student objects
+        let students = [
+            { id: 1, name: "Arun", department: "AIML", mark: 85 },
+            { id: 2, name: "Priya", department: "CSE", mark: 90 },
+            { id: 3, name: "Kumar", department: "IT", mark: 75 }
+        ];
+
+        // 2 and 3. Display student details
+        function displayStudents() {
+            let output = "<h3>Student Details</h3>";
+
+            students.forEach(function(student) {
+                output += "ID: " + student.id + "<br>";
+                output += "Name: " + student.name + "<br>";
+                output += "Department: " + student.department + "<br>";
+                output += "Mark: " + student.mark + "<br><hr>";
+            });
+
+            document.getElementById("result").innerHTML = output;
+        }
+
+        // 4. Add a new student using push()
+        function addStudent() {
+            students.push({
+                id: 4,
+                name: "Divya",
+                department: "AIML",
+                mark: 88
+            });
+
+            alert("New student added!");
+            displayStudents();
+        }
+
+        // 5. Find a student using find()
+        function findStudent() {
+            let student = students.find(function(s) {
+                return s.id === 2;
+            });
+
+            if (student) {
+                document.getElementById("result").innerHTML =
+                    "Student Found: " + student.name +
+                    "<br>Department: " + student.department +
+                    "<br>Mark: " + student.mark;
+            } else {
+                document.getElementById("result").innerHTML =
+                    "Student not found";
+            }
+        }
+
+        // 6. Display students whose marks are above 80
+        function filterStudents() {
+            let result = students.filter(function(s) {
+                return s.mark > 80;
+            });
+
+            let output = "<h3>Students Above 80 Marks</h3>";
+
+            result.forEach(function(s) {
+                output += s.name + " - " + s.mark + "<br>";
+            });
+
+            document.getElementById("result").innerHTML = output;
+        }
+
+        // 7. Calculate average mark
+        function averageMark() {
+            let total = 0;
+
+            students.forEach(function(s) {
+                total = total + s.mark;
+            });
+
+            let average = total / students.length;
+
+            document.getElementById("result").innerHTML =
+                "Average Mark: " + average.toFixed(2);
+        }
+
+        // 8. Remove the last student using pop()
+        function removeStudent() {
+            let removed = students.pop();
+
+            if (removed) {
+                alert(removed.name + " removed successfully!");
+            } else {
+                alert("No students to remove");
+            }
+
+            displayStudents();
+        }
+    </script>
+
+</body>
+</html>
